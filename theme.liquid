@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>
+    {%- if template == 'index' -%}{{ shop.name }} — Power Meets Style.
+    {%- elsif template == 'product' -%}{{ product.title }} — {{ shop.name }}
+    {%- elsif template == 'collection' -%}{{ collection.title }} — {{ shop.name }}
+    {%- elsif template == '404' -%}Sayfa Bulunamadı — {{ shop.name }}
+    {%- else -%}{{ page_title }} — {{ shop.name }}
+    {%- endif -%}
+  </title>
+  {{ content_for_header }}
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
+  {{ 'voltix.css' | asset_url | stylesheet_tag }}
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="toast"></div>
+
+<!-- CART OVERLAY & DRAWER -->
+<div id="cartOverlay" class="cart-overlay-wrap"></div>
+<aside id="cartDrawer" class="cart-drawer-wrap" role="dialog" aria-label="Sepet">
+  <div class="cart-head">
+    <div class="cart-title">Sepet</div>
+    <button class="cart-close" id="cartCloseBtn">✕</button>
+  </div>
+  <div class="cart-items-list" id="cartItemsList">
+    <div class="cart-empty-msg">
+      <div class="cart-empty-icon">○</div>
+      <div class="cart-empty-text">Yükleniyor...</div>
+    </div>
+  </div>
+  <div class="cart-foot">
+    <div class="cart-total-row">
+      <div class="cart-total-lbl">Toplam</div>
+      <div class="cart-total-val" id="cartTotalVal">—</div>
+    </div>
+    <div class="cart-note">Kargo ücretsiz · Türkiye geneli</div>
+    <a href="/checkout" class="cart-checkout-btn">Siparişi Tamamla →</a>
+  </div>
+</aside>
+
+<!-- NAV -->
+<nav class="v-nav" id="vNav">
+  <a class="nav-logo" href="/"><span>V</span>OLTIX</a>
+  <ul class="nav-links">
+    <li><a href="/collections/all">Koleksiyon</a></li>
+    <li><a href="#about">Hakkımızda</a></li>
+    <li><a href="/pages/contact">İletişim</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-cart-btn" id="cartBtn">
+      Sepet
+      <div class="cart-count" id="cartCount">0</div>
+    </button>
+  </div>
+</nav>
+
+{{ content_for_layout }}
+
+<!-- FOOTER -->
+{% section 'footer' %}
+
+{{ 'voltix.js' | asset_url | script_tag }}
+</body>
+</html>

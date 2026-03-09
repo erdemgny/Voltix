@@ -1,0 +1,47 @@
+<footer class="v-footer">
+  <div class="ft-grid">
+    <div>
+      <a class="fbrand" href="/"><span>V</span>OLTIX</a>
+      <p class="fdesc">Power Meets Style. Premium giyim markası. İstanbul, Türkiye.</p>
+    </div>
+    <div>
+      <div class="fct">Koleksiyon</div>
+      <ul class="fl">
+        <li><a href="/collections/t-shirt">T-Shirt</a></li>
+        <li><a href="/collections/hoodie">Hoodie</a></li>
+        <li><a href="/collections/all">Tümü</a></li>
+        <li><a href="/collections/new">Yeni Gelenler</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fct">Bilgi</div>
+      <ul class="fl">
+        <li><a href="/pages/about">Hakkımızda</a></li>
+        <li><a href="/pages/contact">İletişim</a></li>
+        <li><a href="/pages/size-guide">Beden Rehberi</a></li>
+        <li><a href="/pages/faq">SSS</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fct">Destek</div>
+      <ul class="fl">
+        <li><a href="/account/orders">Sipariş Takip</a></li>
+        <li><a href="/pages/returns">İade & Değişim</a></li>
+        <li><a href="/policies/privacy-policy">Gizlilik</a></li>
+        <li><a href="/policies/terms-of-service">Kullanım Şartları</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fbot">
+    <span class="fcopy">© {{ 'now' | date: '%Y' }} VOLTIX. TÜM HAKLARI SAKLIDIR.</span>
+    <div class="fsoc">
+      {% if settings.instagram_url != blank %}<a href="{{ settings.instagram_url }}" target="_blank">IG</a>{% else %}<a href="#">IG</a>{% endif %}
+      {% if settings.tiktok_url != blank %}<a href="{{ settings.tiktok_url }}" target="_blank">TK</a>{% else %}<a href="#">TK</a>{% endif %}
+      {% if settings.twitter_url != blank %}<a href="{{ settings.twitter_url }}" target="_blank">𝕏</a>{% else %}<a href="#">𝕏</a>{% endif %}
+      {% if settings.youtube_url != blank %}<a href="{{ settings.youtube_url }}" target="_blank">YT</a>{% else %}<a href="#">YT</a>{% endif %}
+    </div>
+  </div>
+</footer>
+{% schema %}
+{"name":"Footer","settings":[]}
+{% endschema %}

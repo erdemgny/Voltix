@@ -1,0 +1,32 @@
+<div class="feat-strip">
+  {% for i in (1..4) %}
+    {% assign icon_key = 'icon_' | append: i %}
+    {% assign title_key = 'title_' | append: i %}
+    {% assign desc_key = 'desc_' | append: i %}
+    <div class="fs-item rv d{{ i }}">
+      <span class="fs-icon">{{ section.settings[icon_key] }}</span>
+      <div class="fs-title">{{ section.settings[title_key] }}</div>
+      <p class="fs-desc">{{ section.settings[desc_key] }}</p>
+    </div>
+  {% endfor %}
+</div>
+{% schema %}
+{
+  "name": "Özellikler",
+  "settings": [
+    {"type":"text","id":"icon_1","label":"İkon 1","default":"✦"},
+    {"type":"text","id":"title_1","label":"Başlık 1","default":"Premium Kumaş"},
+    {"type":"textarea","id":"desc_1","label":"Açıklama 1","default":"%100 organik pamuk ve premium karışım kumaşlar. Her dokunuşta fark hissettiren kalite."},
+    {"type":"text","id":"icon_2","label":"İkon 2","default":"◎"},
+    {"type":"text","id":"title_2","label":"Başlık 2","default":"Ücretsiz Kargo"},
+    {"type":"textarea","id":"desc_2","label":"Açıklama 2","default":"Tüm Türkiye'ye ücretsiz kargo. Siparişler 2-3 iş günü içinde kapınızda."},
+    {"type":"text","id":"icon_3","label":"İkon 3","default":"◇"},
+    {"type":"text","id":"title_3","label":"Başlık 3","default":"Kolay İade"},
+    {"type":"textarea","id":"desc_3","label":"Açıklama 3","default":"30 gün içinde ücretsiz iade. Memnuniyet garantisi her ürünümüzde geçerlidir."},
+    {"type":"text","id":"icon_4","label":"İkon 4","default":"◈"},
+    {"type":"text","id":"title_4","label":"Başlık 4","default":"Özel Tasarım"},
+    {"type":"textarea","id":"desc_4","label":"Açıklama 4","default":"Her sezon sınırlı sayıda üretilen, özgün ve koleksiyonel parçalar."}
+  ],
+  "presets":[{"name":"Özellikler"}]
+}
+{% endschema %}

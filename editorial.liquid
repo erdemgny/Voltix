@@ -1,0 +1,47 @@
+<div class="v-editorial" id="about">
+  <div class="ed-visual">
+    <div class="ed-art">
+      <div class="ed-ring1"></div>
+      <div class="ed-ring2"></div>
+      {% if section.settings.editorial_image != blank %}
+        <img src="{{ section.settings.editorial_image | img_url: '600x' }}" alt="Editorial" style="width:60%;max-width:280px;position:relative;z-index:2;filter:drop-shadow(0 16px 48px rgba(184,151,106,.3));object-fit:contain"/>
+      {% else %}
+        <div class="ed-center">⚡</div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="ed-copy">
+    <div class="v-label rv">{{ section.settings.label | default: 'Marka Hikayesi' }}</div>
+    <h2 class="ed-h rv">{{ section.settings.title | default: 'Güç ve' }}<br/><em>{{ section.settings.title_em | default: 'Zarafet' }}</em><br/>{{ section.settings.title3 | default: 'Bir Arada.' }}</h2>
+    <p class="ed-p rv">{{ section.settings.description | default: 'Voltix, giyimin sıradan olmak zorunda olmadığına inanarak doğdu. Her parçamız, hem sokakta hem de özel anlarda sizi ifade eden bir güç kaynağıdır.' }}</p>
+    <ul class="ed-list rv">
+      {% for i in (1..4) %}
+        {% assign item_key = 'list_item_' | append: i %}
+        {% if section.settings[item_key] != blank %}
+          <li>{{ section.settings[item_key] }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    <a href="{{ section.settings.btn_link | default: '/collections/all' }}" class="btn-gold rv">{{ section.settings.btn_text | default: 'Koleksiyona Bak →' }}</a>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Editorial",
+  "settings": [
+    {"type":"image_picker","id":"editorial_image","label":"Görsel (opsiyonel)"},
+    {"type":"text","id":"label","label":"Üst Etiket","default":"Marka Hikayesi"},
+    {"type":"text","id":"title","label":"Başlık","default":"Güç ve"},
+    {"type":"text","id":"title_em","label":"Başlık (italik)","default":"Zarafet"},
+    {"type":"text","id":"title3","label":"Başlık 3. Satır","default":"Bir Arada."},
+    {"type":"textarea","id":"description","label":"Açıklama"},
+    {"type":"text","id":"list_item_1","label":"Liste Öğesi 1","default":"%100 Organik Pamuk Malzeme"},
+    {"type":"text","id":"list_item_2","label":"Liste Öğesi 2","default":"Sınırlı Sayıda Üretim"},
+    {"type":"text","id":"list_item_3","label":"Liste Öğesi 3","default":"El İşçiliği ile Özel Dikişler"},
+    {"type":"text","id":"list_item_4","label":"Liste Öğesi 4","default":"Sürdürülebilir Üretim Süreci"},
+    {"type":"text","id":"btn_text","label":"Buton Yazısı","default":"Koleksiyona Bak →"},
+    {"type":"url","id":"btn_link","label":"Buton Linki"}
+  ],
+  "presets":[{"name":"Editorial"}]
+}
+{% endschema %}

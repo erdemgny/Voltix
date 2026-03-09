@@ -1,0 +1,61 @@
+<section class="v-hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">{{ section.settings.eyebrow | default: 'Yeni Sezon Koleksiyonu · 2025' }}</div>
+    <h1 class="hero-title">
+      {{ section.settings.title_line1 | default: 'Power' }}<br/>
+      <em>{{ section.settings.title_line2 | default: 'Meets' }}</em><br/>
+      {{ section.settings.title_line3 | default: 'Style.' }}
+    </h1>
+    <p class="hero-desc">{{ section.settings.description | default: 'Voltix, gücü ve zarafeti bir araya getiren premium giyim markasıdır. Her parça, titizlikle seçilmiş malzemeler ve özgün tasarımla hayata geçirilir.' }}</p>
+    <div class="hero-ctas">
+      <a href="{{ section.settings.primary_btn_link | default: '/collections/all' }}" class="btn-gold">
+        {{ section.settings.primary_btn | default: 'Koleksiyonu Keşfet' }}
+      </a>
+      <a href="{{ section.settings.secondary_btn_link | default: '#about' }}" class="btn-outline">
+        {{ section.settings.secondary_btn | default: 'Hakkımızda' }}
+      </a>
+    </div>
+    <div class="hero-line">
+      <div class="hero-line-bar"></div>
+      <div class="hero-line-text">Scroll to discover</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="hero-art">
+        <div class="hero-shape1"></div>
+        <div class="hero-shape2"></div>
+        <div class="hero-shape3"></div>
+        {% if section.settings.hero_image != blank %}
+          <img class="hero-icon" src="{{ section.settings.hero_image | img_url: '600x' }}" alt="Hero" style="width:60%;max-width:280px;animation:floatHero 5s ease-in-out infinite;filter:drop-shadow(0 20px 60px rgba(184,151,106,.3));object-fit:contain"/>
+        {% else %}
+          <div class="hero-icon">🖤</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="hero-badge">
+      <div class="badge-n">{{ section.settings.badge_number | default: '25' }}</div>
+      <div class="badge-l">{{ section.settings.badge_label | default: 'Yeni Ürün' }}</div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {"type":"text","id":"eyebrow","label":"Üst Etiket","default":"Yeni Sezon Koleksiyonu · 2025"},
+    {"type":"text","id":"title_line1","label":"Başlık Satır 1","default":"Power"},
+    {"type":"text","id":"title_line2","label":"Başlık Satır 2 (italik)","default":"Meets"},
+    {"type":"text","id":"title_line3","label":"Başlık Satır 3","default":"Style."},
+    {"type":"textarea","id":"description","label":"Açıklama"},
+    {"type":"text","id":"primary_btn","label":"Ana Buton Yazısı","default":"Koleksiyonu Keşfet"},
+    {"type":"url","id":"primary_btn_link","label":"Ana Buton Linki"},
+    {"type":"text","id":"secondary_btn","label":"İkincil Buton Yazısı","default":"Hakkımızda"},
+    {"type":"url","id":"secondary_btn_link","label":"İkincil Buton Linki"},
+    {"type":"image_picker","id":"hero_image","label":"Hero Görseli (opsiyonel)"},
+    {"type":"text","id":"badge_number","label":"Rozet Sayısı","default":"25"},
+    {"type":"text","id":"badge_label","label":"Rozet Etiketi","default":"Yeni Ürün"}
+  ],
+  "presets": [{"name":"Hero"}]
+}
+{% endschema %}

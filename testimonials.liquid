@@ -1,0 +1,49 @@
+<section class="v-sec v-sec-dark">
+  <div class="rv">
+    <div class="v-label">{{ section.settings.label | default: 'Müşteri Yorumları' }}</div>
+    <h2 class="v-sec-h">{{ section.settings.title | default: 'Ne ' }}<em>{{ section.settings.title_em | default: 'Diyorlar?' }}</em></h2>
+  </div>
+  <div class="test-grid">
+    {% for i in (1..3) %}
+      {% assign text_key  = 'text_'   | append: i %}
+      {% assign name_key  = 'name_'   | append: i %}
+      {% assign loc_key   = 'loc_'    | append: i %}
+      {% assign init_key  = 'init_'   | append: i %}
+      {% assign delay = i | minus: 1 %}
+      <div class="tcard rv d{{ delay }}">
+        <div class="tstars">★★★★★</div>
+        <p class="ttxt">"{{ section.settings[text_key] }}"</p>
+        <div class="tauth">
+          <div class="tav">{{ section.settings[init_key] }}</div>
+          <div>
+            <div class="tan">{{ section.settings[name_key] }}</div>
+            <div class="tar">{{ section.settings[loc_key] }}</div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Yorumlar",
+  "settings": [
+    {"type":"text","id":"label","label":"Etiket","default":"Müşteri Yorumları"},
+    {"type":"text","id":"title","label":"Başlık","default":"Ne "},
+    {"type":"text","id":"title_em","label":"Başlık (italik)","default":"Diyorlar?"},
+    {"type":"textarea","id":"text_1","label":"Yorum 1","default":"Voltix hoodie'yi aldığımda kalitesine inanamadım. Bu fiyat aralığında bu kaliteyi başka bir yerde bulamazsınız."},
+    {"type":"text","id":"name_1","label":"Ad 1","default":"Ahmet Yılmaz"},
+    {"type":"text","id":"loc_1","label":"Konum 1","default":"İstanbul"},
+    {"type":"text","id":"init_1","label":"İnisyal 1","default":"AY"},
+    {"type":"textarea","id":"text_2","label":"Yorum 2","default":"Essential Black Tee tam beklediğim gibi. Oversize kesim mükemmel, kumaş gerçekten premium hissettiriyor."},
+    {"type":"text","id":"name_2","label":"Ad 2","default":"Selin Öztürk"},
+    {"type":"text","id":"loc_2","label":"Konum 2","default":"Ankara"},
+    {"type":"text","id":"init_2","label":"İnisyal 2","default":"SÖ"},
+    {"type":"textarea","id":"text_3","label":"Yorum 3","default":"Birden fazla kez aldım. Kargo hızı ve paketleme de ayrıca çok özenli. Markayı herkese tavsiye ediyorum."},
+    {"type":"text","id":"name_3","label":"Ad 3","default":"Burak Kaya"},
+    {"type":"text","id":"loc_3","label":"Konum 3","default":"İzmir"},
+    {"type":"text","id":"init_3","label":"İnisyal 3","default":"BK"}
+  ],
+  "presets":[{"name":"Yorumlar"}]
+}
+{% endschema %}

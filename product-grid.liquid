@@ -1,0 +1,99 @@
+<section class="v-sec" id="collection">
+  <div class="prod-hdr rv">
+    <div>
+      <div class="v-label">Koleksiyon</div>
+      <h2 class="v-sec-h">2025 <em>Sezonu</em></h2>
+    </div>
+    <a href="/collections/all" class="btn-outline">Tümünü Gör →</a>
+  </div>
+
+  {% assign feat_coll = collections[section.settings.collection] %}
+  {% if feat_coll == empty or feat_coll == blank %}
+    {% assign feat_coll = collections.all %}
+  {% endif %}
+
+  {% assign bg_classes = 'pb1,pb2,pb3,pb4,pb5,pb6' | split: ',' %}
+  {% assign badges = 'Bestseller,Yeni,Limited,Popüler,,Premium' | split: ',' %}
+  {% assign delay_classes = ',d1,d2,d1,d2,d3' | split: ',' %}
+
+  <div class="prod-grid">
+    {% for product in feat_coll.products limit: section.settings.products_to_show %}
+      {% assign idx = forloop.index0 %}
+      {% assign bg = bg_classes[idx] %}
+      {% assign badge = badges[idx] %}
+      {% assign delay = delay_classes[idx] %}
+      {% assign first_variant = product.variants.first %}
+
+      <div class="v-pc rv {{ delay }}"
+           data-variant-id="{{ first_variant.id }}"
+           data-name="{{ product.title | escape }}">
+
+        <div class="v-pc-visual">
+          <div class="v-pc-bg {{ bg }}"></div>
+          <div class="v-pc-glow"></div>
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | img_url: '600x' }}" alt="{{ product.title }}"/>
+          {% else %}
+            <div class="v-pc-emoji">👕</div>
+          {% endif %}
+          <div class="v-pc-overlay"></div>
+        </div>
+
+        {% if badge != '' %}
+          <div class="v-pc-badge">{{ badge }}</div>
+        {% endif %}
+
+        <div class="v-pc-info">
+          <div class="v-pc-sizes">
+            {% assign size_option = nil %}
+            {% for option in product.options %}
+              {% if option == 'Beden' or option == 'Size' %}
+                {% assign size_option_index = forloop.index0 %}
+                {% assign size_option = option %}
+              {% endif %}
+            {% endfor %}
+
+            {% if size_option %}
+              {% assign sizes = product.variants | map: 'option' | uniq %}
+              {% for variant in product.variants %}
+                {% assign sz_val = variant.options[size_option_index] %}
+                <button class="v-pc-sz {% if forloop.first %}active{% endif %}"
+                        data-size="{{ sz_val }}"
+                        data-variant-id="{{ variant.id }}"
+                        onclick="event.stopPropagation();document.querySelector('[data-variant-id]').closest('.v-pc').dataset.variantId='{{ variant.id }}';this.closest('.v-pc-sizes').querySelectorAll('.v-pc-sz').forEach(s=>s.classList.remove('active'));this.classList.add('active')">
+                  {{ sz_val }}
+                </button>
+              {% endfor %}
+            {% else %}
+              <button class="v-pc-sz active" data-size="XS">XS</button>
+              <button class="v-pc-sz" data-size="S">S</button>
+              <button class="v-pc-sz" data-size="M">M</button>
+              <button class="v-pc-sz" data-size="L">L</button>
+              <button class="v-pc-sz" data-size="XL">XL</button>
+            {% endif %}
+          </div>
+
+          <a href="{{ product.url }}" class="v-pc-name">{{ product.title }}</a>
+          <div class="v-pc-sub">{{ product.type | default: 'Premium Koleksiyon' }}</div>
+          <div class="v-pc-bottom">
+            <div class="v-pc-price">{{ first_variant.price | money }}</div>
+            <button class="v-pc-add">Sepete Ekle</button>
+          </div>
+        </div>
+
+      </div>
+    {% else %}
+      <p style="color:var(--grey);padding:40px;grid-column:span 3">Shopify Admin'den ürün ekleyin.</p>
+    {% endfor %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Ürün Grid",
+  "settings": [
+    {"type":"collection","id":"collection","label":"Koleksiyon","info":"Gösterilecek koleksiyonu seçin"},
+    {"type":"range","id":"products_to_show","min":3,"max":12,"step":1,"label":"Gösterilecek Ürün Sayısı","default":6}
+  ],
+  "presets":[{"name":"Ürün Grid"}]
+}
+{% endschema %}

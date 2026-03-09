@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "hero":         {"type": "hero",          "settings": {}},
+    "marquee":      {"type": "marquee",       "settings": {}},
+    "features":     {"type": "features",      "settings": {}},
+    "product-grid": {"type": "product-grid",  "settings": {"products_to_show": 6}},
+    "editorial":    {"type": "editorial",     "settings": {}},
+    "testimonials": {"type": "testimonials",  "settings": {}},
+    "cta":          {"type": "cta",           "settings": {}}
+  },
+  "order": ["hero","marquee","features","product-grid","editorial","testimonials","cta"]
+}

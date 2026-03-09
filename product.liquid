@@ -1,0 +1,78 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<div class="v-product-page">
+  <div class="pp-images">
+    {% if product.featured_image %}
+      {% assign imgs = product.images %}
+      <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.title }}" id="ppMainImg"/>
+    {% else %}
+      <div class="pp-icon">👕</div>
+    {% endif %}
+  </div>
+
+  <div class="pp-info">
+    <div class="pp-brand">VOLTIX</div>
+    <h1 class="pp-title">{{ product.title }}</h1>
+    <div class="pp-price" id="ppPrice">{{ current_variant.price | money }}</div>
+
+    <div class="pp-desc">{{ product.description }}</div>
+
+    {% for option in product.options_with_values %}
+      <div class="pp-label">{{ option.name }}</div>
+      <div class="pp-size-btns">
+        {% for value in option.values %}
+          <button class="pp-sz {% if forloop.first %}active{% endif %}" data-size="{{ value }}">{{ value }}</button>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    <div class="pp-label" style="margin-top:8px">Adet</div>
+    <div class="pp-qty-row">
+      <button class="pp-qbtn" id="ppDecBtn">−</button>
+      <span class="pp-qty-num" id="ppQtyNum">1</span>
+      <button class="pp-qbtn" id="ppIncBtn">+</button>
+    </div>
+
+    <button class="pp-add-btn" id="ppAddBtn" data-variant-id="{{ current_variant.id }}">Sepete Ekle</button>
+
+    {% if product.available %}
+      <p style="font-size:11px;color:var(--grey);letter-spacing:1.5px;text-transform:uppercase;margin-top:8px">✓ Stokta mevcut · Ücretsiz kargo</p>
+    {% else %}
+      <p style="font-size:11px;color:#c0392b;letter-spacing:1.5px;text-transform:uppercase;margin-top:8px">Stokta yok</p>
+    {% endif %}
+
+    {% if product.images.size > 1 %}
+      <div style="display:flex;gap:8px;margin-top:28px;flex-wrap:wrap">
+        {% for img in product.images %}
+          <img src="{{ img | img_url: '120x' }}" alt="{{ product.title }}"
+               style="width:72px;height:88px;object-fit:cover;cursor:pointer;border:1px solid var(--border2);transition:border-color .2s"
+               onclick="document.getElementById('ppMainImg').src='{{ img | img_url: '800x' }}';document.querySelectorAll('[onclick*=ppMainImg]').forEach(i=>i.style.borderColor='');this.style.borderColor='var(--gold)'"/>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if recommendations.products.size > 0 %}
+  <div class="v-sec" style="border-top:1px solid var(--border2)">
+    <div class="v-label">Bunları da Beğenebilirsiniz</div>
+    <div class="prod-grid">
+      {% for rec in recommendations.products limit:3 %}
+        <a href="{{ rec.url }}" class="v-pc" style="text-decoration:none" data-variant-id="{{ rec.variants.first.id }}" data-name="{{ rec.title | escape }}">
+          <div class="v-pc-visual">
+            <div class="v-pc-bg pb{{ forloop.index }}"></div>
+            {% if rec.featured_image %}<img src="{{ rec.featured_image | img_url: '600x' }}" alt="{{ rec.title }}"/>{% else %}<div class="v-pc-emoji">👕</div>{% endif %}
+            <div class="v-pc-overlay"></div>
+          </div>
+          <div class="v-pc-info">
+            <div class="v-pc-name">{{ rec.title }}</div>
+            <div class="v-pc-bottom">
+              <div class="v-pc-price">{{ rec.price | money }}</div>
+              <button class="v-pc-add" onclick="event.preventDefault()">Sepete Ekle</button>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

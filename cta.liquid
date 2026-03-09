@@ -1,0 +1,24 @@
+<section class="v-cta" id="contact">
+  <div class="cta-h rv">{{ section.settings.title | default: 'Koleksiyonu' }}<br/><em>{{ section.settings.title_em | default: 'Keşfet.' }}</em></div>
+  <p class="cta-p rv">{{ section.settings.description | default: 'Sınırlı stoklar tükenmeden Voltix\'in yeni sezon parçalarına sahip olun.' }}</p>
+  <div class="cta-line"></div>
+  <div class="cta-acts rv">
+    <a href="{{ section.settings.primary_link | default: '/collections/all' }}" class="btn-gold">{{ section.settings.primary_text | default: 'Alışverişe Başla' }}</a>
+    <a href="{{ section.settings.secondary_link | default: '/pages/contact' }}" class="btn-outline">{{ section.settings.secondary_text | default: 'Bize Yazın →' }}</a>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "CTA Bölümü",
+  "settings": [
+    {"type":"text","id":"title","label":"Başlık","default":"Koleksiyonu"},
+    {"type":"text","id":"title_em","label":"Başlık (italik)","default":"Keşfet."},
+    {"type":"textarea","id":"description","label":"Açıklama"},
+    {"type":"text","id":"primary_text","label":"Ana Buton","default":"Alışverişe Başla"},
+    {"type":"url","id":"primary_link","label":"Ana Buton Linki"},
+    {"type":"text","id":"secondary_text","label":"İkincil Buton","default":"Bize Yazın →"},
+    {"type":"url","id":"secondary_link","label":"İkincil Buton Linki"}
+  ],
+  "presets":[{"name":"CTA"}]
+}
+{% endschema %}

@@ -1,0 +1,57 @@
+<div class="v-sec" style="padding-top:140px">
+  <div class="rv" style="margin-bottom:60px">
+    <div class="v-label">Koleksiyon</div>
+    <h1 class="v-sec-h">{{ collection.title }} <em>Koleksiyonu</em></h1>
+    {% if collection.description != blank %}
+      <p style="font-size:13px;color:var(--grey);max-width:500px;margin-top:16px;line-height:1.8">{{ collection.description }}</p>
+    {% endif %}
+  </div>
+
+  {% assign bg_list = 'pb1,pb2,pb3,pb4,pb5,pb6' | split: ',' %}
+  {% assign delay_list = ',d1,d2,d1,d2,d3' | split: ',' %}
+
+  <div class="prod-grid">
+    {% for product in collection.products %}
+      {% assign idx = forloop.index0 | modulo: 6 %}
+      <div class="v-pc rv {{ delay_list[idx] }}"
+           data-variant-id="{{ product.variants.first.id }}"
+           data-name="{{ product.title | escape }}">
+        <div class="v-pc-visual">
+          <div class="v-pc-bg {{ bg_list[idx] }}"></div>
+          <div class="v-pc-glow"></div>
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | img_url: '600x' }}" alt="{{ product.title }}"/>
+          {% else %}
+            <div class="v-pc-emoji">👕</div>
+          {% endif %}
+          <div class="v-pc-overlay"></div>
+        </div>
+        <a href="{{ product.url }}" class="v-pc-info" style="text-decoration:none;display:block">
+          <div class="v-pc-sizes">
+            <button class="v-pc-sz active" data-size="S">S</button>
+            <button class="v-pc-sz" data-size="M">M</button>
+            <button class="v-pc-sz" data-size="L">L</button>
+            <button class="v-pc-sz" data-size="XL">XL</button>
+          </div>
+          <div class="v-pc-name">{{ product.title }}</div>
+          <div class="v-pc-sub">{{ product.type | default: 'Premium Koleksiyon' }}</div>
+          <div class="v-pc-bottom">
+            <div class="v-pc-price">{{ product.price | money }}</div>
+            <button class="v-pc-add" onclick="event.preventDefault()">Sepete Ekle</button>
+          </div>
+        </a>
+      </div>
+    {% else %}
+      <p style="color:var(--grey);padding:60px;grid-column:span 3;text-align:center;font-size:13px;letter-spacing:2px;text-transform:uppercase">Bu koleksiyonda henüz ürün bulunmuyor.</p>
+    {% endfor %}
+  </div>
+
+  {% if paginate.pages > 1 %}
+    {% paginate collection.products by 12 %}
+      <div style="display:flex;justify-content:center;gap:12px;margin-top:60px">
+        {% if paginate.previous %}<a href="{{ paginate.previous.url }}" class="btn-outline">← Önceki</a>{% endif %}
+        {% if paginate.next %}<a href="{{ paginate.next.url }}" class="btn-outline">Sonraki →</a>{% endif %}
+      </div>
+    {% endpaginate %}
+  {% endif %}
+</div>

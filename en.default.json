@@ -1,0 +1,14 @@
+{
+  "general": {
+    "pagination": {
+      "previous": "Önceki",
+      "next": "Sonraki"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Sepete Ekle",
+      "sold_out": "Stokta Yok"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+[
+  {
+    "name": "Sosyal Medya",
+    "settings": [
+      {
+        "type": "text",
+        "id": "instagram_url",
+        "label": "Instagram URL",
+        "default": "https://instagram.com"
+      },
+      {
+        "type": "text",
+        "id": "tiktok_url",
+        "label": "TikTok URL",
+        "default": "https://tiktok.com"
+      },
+      {
+        "type": "text",
+        "id": "twitter_url",
+        "label": "Twitter / X URL",
+        "default": ""
+      },
+      {
+        "type": "text",
+        "id": "youtube_url",
+        "label": "YouTube URL",
+        "default": ""
+      }
+    ]
+  }
+]
